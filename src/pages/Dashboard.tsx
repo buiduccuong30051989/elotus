@@ -2,20 +2,18 @@ import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 import "../mutators/marketMutators";
 import "../orchestrators/initMarket";
-import { pairsLoading } from "../actions/marketActions";
-import { BinanceWs } from "../services/binanceWs";
+import "../orchestrators/marketWs";
+import { connectPriceStream, disconnectPriceStream, pairsLoading } from "../actions/marketActions";
 import marketStore from "../store/marketStore";
 
 const Dashboard = observer(() => {
   useEffect(() => {
     pairsLoading();
+    connectPriceStream();
 
-    const ws = new BinanceWs("!miniTicker@arr", (data) => {
-      console.info(data);
-    });
-    ws.connect();
-
-    return () => ws.disconnect();
+    return () => {
+      disconnectPriceStream();
+    };
   }, []);
 
   const store = marketStore();

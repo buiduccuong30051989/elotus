@@ -5,7 +5,16 @@ import { fetchTickers } from "../services/binanceRest";
 export const initMarketOrchestrator = orchestrator(pairsLoading, async () => {
   try {
     const tickers = await fetchTickers();
-    const pairs = tickers.filter((t) => t.symbol.endsWith("USDT"));
+    const pairs = tickers
+      .filter((t) => t.symbol.endsWith("USDT") && Number.parseFloat(t.lastPrice) > 0)
+      .map((t) => ({
+        ...t,
+        priceChangePercent: (
+          ((Number.parseFloat(t.lastPrice) - Number.parseFloat(t.openPrice)) /
+            Number.parseFloat(t.openPrice)) *
+          100
+        ).toFixed(2),
+      }));
     pairsLoaded(pairs);
   } catch (err) {
     const message = err instanceof Error ? err.message : "Failed to fetch market data";

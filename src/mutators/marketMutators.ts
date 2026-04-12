@@ -1,5 +1,5 @@
 import { mutator } from "satcheljs";
-import { pairsFailed, pairsLoaded, pairsLoading } from "../actions/marketActions";
+import { pairsFailed, pairsLoaded, pairsLoading, pricesUpdated } from "../actions/marketActions";
 import marketStore from "../store/marketStore";
 
 mutator(pairsLoading, () => {
@@ -15,4 +15,29 @@ mutator(pairsLoaded, ({ pairs }) => {
 mutator(pairsFailed, ({ error }) => {
   marketStore().error = error;
   marketStore().isLoading = false;
+});
+
+mutator(pricesUpdated, ({ tickers }) => {
+  // !miniTicker@arr only pushes symbols with price changes per tick, not all symbols.
+  // ref: https://developers.binance.com/docs/binance-spot-api-docs/web-socket-streams
+  const map = new Map(tickers.map((t) => [t.s, t]));
+
+  for (const pair of marketStore().pairs) {
+    const ticker = map.get(pair.symbol);
+    if (!ticker) continue;
+
+    const prev = Number.parseFloat(pair.lastPrice);
+    const next = Number.parseFloat(ticker.c);
+
+    if (next !== prev) {
+      pair.direction = next > prev ? "up" : "down";
+      // could set pair.direction = undefined here when next === prev for neutral, but rarely happens in practice
+    }
+
+    pair.lastPrice = ticker.c;
+    pair.priceChangePercent = (
+      ((Number.parseFloat(ticker.c) - Number.parseFloat(ticker.o)) / Number.parseFloat(ticker.o)) *
+      100
+    ).toFixed(2);
+  }
 });
