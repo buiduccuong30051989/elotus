@@ -1,3 +1,5 @@
+import type { UTCTimestamp } from "lightweight-charts";
+
 // Raw response from /klines — array of arrays
 export type KlineRaw = [
   number,  // open time
@@ -15,7 +17,7 @@ export type KlineRaw = [
 ];
 
 export interface Candle {
-  time: number;
+  time: UTCTimestamp;
   open: number;
   high: number;
   low: number;
@@ -26,7 +28,7 @@ export type Interval = "1m" | "15m" | "1h" | "4h" | "1d";
 
 export function toCandle(k: KlineRaw): Candle {
   return {
-    time: k[0] / 1000,
+    time: (k[0] / 1000) as UTCTimestamp,
     open: Number.parseFloat(k[1]),
     high: Number.parseFloat(k[2]),
     low: Number.parseFloat(k[3]),

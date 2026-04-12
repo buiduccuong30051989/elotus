@@ -1,5 +1,5 @@
 import { mutator } from "satcheljs";
-import { candlesLoaded, chartFailed, chartLoading, intervalChanged } from "../actions/chartActions";
+import { candlesLoaded, chartFailed, chartLoading } from "../actions/chartActions";
 import chartStore from "../store/chartStore";
 
 mutator(chartLoading, ({ symbol, interval }) => {
@@ -18,8 +18,4 @@ mutator(candlesLoaded, ({ candles }) => {
 mutator(chartFailed, ({ error }) => {
   chartStore().error = error;
   chartStore().isLoading = false;
-});
-
-mutator(intervalChanged, ({ interval }) => {
-  chartStore().interval = interval;
 });
