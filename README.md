@@ -132,3 +132,9 @@ All data comes from the public Binance API — no API key required.
 
 - **REST:** `https://api.binance.com/api/v3`
 - **WebSocket:** `wss://stream.binance.com:9443/ws`
+
+### WebSocket
+
+`BinanceWs` (`src/services/binanceWs.ts`) is a thin wrapper around the native `WebSocket` API. It handles one stream per instance and is intentionally kept free of React and store dependencies.
+
+**Reconnect strategy:** On `onclose`, it schedules a reconnect with exponential backoff starting at 1s, capped at 30s. `onerror` closes the socket immediately to trigger the same path. Calling `disconnect()` sets a `stopped` flag so the reconnect loop doesn't fire after an intentional teardown (e.g. component unmount).

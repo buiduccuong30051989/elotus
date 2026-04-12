@@ -3,11 +3,19 @@ import { useEffect } from "react";
 import "../mutators/marketMutators";
 import "../orchestrators/initMarket";
 import { pairsLoading } from "../actions/marketActions";
+import { BinanceWs } from "../services/binanceWs";
 import marketStore from "../store/marketStore";
 
 const Dashboard = observer(() => {
   useEffect(() => {
     pairsLoading();
+
+    const ws = new BinanceWs("!miniTicker@arr", (data) => {
+      console.info(data);
+    });
+    ws.connect();
+
+    return () => ws.disconnect();
   }, []);
 
   const store = marketStore();
