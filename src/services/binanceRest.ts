@@ -1,4 +1,5 @@
 import axios from "axios";
+import type { KlineRaw } from "../types/chart";
 import type { Ticker24hrRaw } from "../types/market";
 
 const client = axios.create({
@@ -9,6 +10,13 @@ const client = axios.create({
 export async function fetchTickers(): Promise<Ticker24hrRaw[]> {
   const { data } = await client.get<Ticker24hrRaw[]>("/ticker/24hr", {
     params: { type: "MINI" },
+  });
+  return data;
+}
+
+export async function fetchKlines(symbol: string, interval: string): Promise<KlineRaw[]> {
+  const { data } = await client.get<KlineRaw[]>("/klines", {
+    params: { symbol, interval, limit: 500 },
   });
   return data;
 }

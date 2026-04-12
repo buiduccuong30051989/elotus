@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../mutators/marketMutators";
 import "../orchestrators/initMarket";
 import "../orchestrators/marketWs";
@@ -7,6 +8,8 @@ import { connectPriceStream, disconnectPriceStream, pairsLoading } from "../acti
 import marketStore from "../store/marketStore";
 
 const Dashboard = observer(() => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     pairsLoading();
     connectPriceStream();
@@ -32,7 +35,11 @@ const Dashboard = observer(() => {
       </thead>
       <tbody>
         {store.pairs.map((pair) => (
-          <tr key={pair.symbol}>
+          <tr
+            key={pair.symbol}
+            onClick={() => navigate(`/token/${pair.symbol}`)}
+            onKeyDown={(e) => e.key === "Enter" && navigate(`/token/${pair.symbol}`)}
+          >
             <td>{pair.symbol}</td>
             <td>{pair.lastPrice}</td>
             <td>{pair.priceChangePercent}%</td>
