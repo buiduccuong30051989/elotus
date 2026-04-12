@@ -1,0 +1,26 @@
+{
+  "common": {
+    "search": "Tìm kiếm",
+    "favorites": "Yêu thích",
+    "all": "Tất cả",
+    "loading": "Đang tải...",
+    "error": "Có lỗi xảy ra"
+  },
+  "dashboard": {
+    "title": "Thị trường",
+    "price": "Giá",
+    "change24h": "Thay đổi 24h",
+    "volume": "Khối lượng"
+  },
+  "chart": {
+    "title": "Biểu đồ",
+    "interval": "Khung thời gian"
+  },
+  "settings": {
+    "language": "Ngôn ngữ",
+    "theme": "Giao diện",
+    "avatar": "Ảnh đại diện",
+    "light": "Sáng",
+    "dark": "Tối"
+  }
+}

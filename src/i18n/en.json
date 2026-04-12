@@ -1,0 +1,26 @@
+{
+  "common": {
+    "search": "Search",
+    "favorites": "Favorites",
+    "all": "All",
+    "loading": "Loading...",
+    "error": "Something went wrong"
+  },
+  "dashboard": {
+    "title": "Market",
+    "price": "Price",
+    "change24h": "24h Change",
+    "volume": "Volume"
+  },
+  "chart": {
+    "title": "Chart",
+    "interval": "Interval"
+  },
+  "settings": {
+    "language": "Language",
+    "theme": "Theme",
+    "avatar": "Avatar",
+    "light": "Light",
+    "dark": "Dark"
+  }
+}
