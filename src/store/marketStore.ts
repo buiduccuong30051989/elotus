@@ -1,8 +1,8 @@
 import { createStore } from "satcheljs";
-import type { Ticker24hr } from "../types/market";
+import type { CryptoPair } from "../types/market";
 
 interface MarketStore {
-  pairs: Ticker24hr[];
+  pairs: CryptoPair[];
   isLoading: boolean;
   error: string | null;
 }

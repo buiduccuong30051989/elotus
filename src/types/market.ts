@@ -1,9 +1,16 @@
-export interface Ticker24hr {
-  symbol: string; // e.g. "BTCUSDT"
-  openPrice: string; // 24h open price (from REST MINI ticker)
-  lastPrice: string; // current price
-  priceChangePercent: string; // 24h change, e.g. "-1.23"
-  direction?: FlashDirection; // up/down vs previous tick — absent until first WS update
+export interface Ticker24hrRaw {
+  symbol: string;
+  openPrice: string;
+  highPrice: string;
+  lowPrice: string;
+  lastPrice: string;
+  volume: string;
+  quoteVolume: string;
+  openTime: number;
+  closeTime: number;
+  firstId: number;
+  lastId: number;
+  count: number;
 }
 
 export interface MiniTickerPayload {
@@ -16,6 +23,13 @@ export interface MiniTickerPayload {
   l: string; // low
   v: string; // base asset volume
   q: string; // quote asset volume
+}
+
+export interface CryptoPair {
+  symbol: string;
+  lastPrice: string;
+  priceChangePercent: string;
+  direction?: FlashDirection;
 }
 
 export type FlashDirection = "up" | "down";

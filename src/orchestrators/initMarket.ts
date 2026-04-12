@@ -6,9 +6,10 @@ export const initMarketOrchestrator = orchestrator(pairsLoading, async () => {
   try {
     const tickers = await fetchTickers();
     const pairs = tickers
-      .filter((t) => t.symbol.endsWith("USDT") && Number.parseFloat(t.lastPrice) > 0)
+      .filter((t) => t.symbol && Number.parseFloat(t.lastPrice) > 0)
       .map((t) => ({
-        ...t,
+        symbol: t.symbol,
+        lastPrice: t.lastPrice,
         priceChangePercent: (
           ((Number.parseFloat(t.lastPrice) - Number.parseFloat(t.openPrice)) /
             Number.parseFloat(t.openPrice)) *
