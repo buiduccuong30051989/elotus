@@ -1,6 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import "@/styles/pages/token.css";
 import { chartLoading, chartUnmounted } from "./token.actions";
 import CandlestickChart from "./components/CandlestickChart";
 import "./token.mutators";
