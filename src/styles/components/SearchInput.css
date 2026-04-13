@@ -1,0 +1,29 @@
+@reference "../tailwind.css";
+
+.search-wrapper {
+  @apply relative w-full max-w-sm;
+}
+
+.search-cmd {
+  @apply overflow-visible bg-transparent;
+}
+
+.search-cmd [cmdk-input-wrapper] {
+  @apply rounded-md border border-input;
+}
+
+.search-cmd__list {
+  @apply absolute top-full z-50 mt-1 w-full overflow-hidden rounded-md border border-border bg-popover shadow-md;
+}
+
+.search-cmd__item {
+  @apply cursor-pointer;
+}
+
+.search-cmd__item-price {
+  @apply ml-2 text-xs text-muted-foreground;
+}
+
+.search-cmd__star {
+  @apply ml-auto size-3 fill-amber-400 text-amber-400;
+}
