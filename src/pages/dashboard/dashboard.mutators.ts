@@ -1,3 +1,4 @@
+import { runInAction } from "mobx";
 import { mutator } from "satcheljs";
 import { pairsFailed, pairsLoaded, pairsLoading, pricesUpdated } from "./dashboard.actions";
 import marketStore from "./dashboard.store";
@@ -31,6 +32,7 @@ mutator(pricesUpdated, ({ tickers }) => {
 
     if (next !== prev) {
       pair.direction = next > prev ? "up" : "down";
+      setTimeout(() => runInAction(() => { pair.direction = undefined; }), 800);
     }
 
     pair.lastPrice = ticker.c;

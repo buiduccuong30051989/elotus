@@ -29,7 +29,7 @@ export interface CryptoPair {
   symbol: string;
   lastPrice: string;
   priceChangePercent: string;
-  direction?: FlashDirection;
+  direction?: FlashDirection | undefined;
 }
 
 export type FlashDirection = "up" | "down";

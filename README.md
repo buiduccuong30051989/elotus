@@ -30,18 +30,42 @@ npm run build
 
 ## Project Structure
 
+The project uses a **domain/feature folder structure** — each page owns its SatchelJS files (store, actions, mutators, orchestrators, types) collocated in its own folder rather than split into global `store/`, `actions/`, `mutators/` layers. This keeps all files related to a feature together and makes it easier to navigate when working on a single domain.
+
 ```
 src/
-  types/          # TypeScript interfaces for API responses, WS payloads, store shapes
-  store/          # SatchelJS stores (marketStore, chartStore, settingsStore)
-  actions/        # SatchelJS actions — describe what happened
-  mutators/       # SatchelJS mutators — pure functions that update the store
-  orchestrators/  # Side effects: REST fetches, WebSocket connect/disconnect
-  services/       # Binance REST (axios) and WebSocket service wrappers
-  components/     # Reusable UI components
-  pages/          # Dashboard, TokenDetail
-  i18n/           # Locale files (en, vi)
-  hooks/          # Custom React hooks
+  pages/
+    dashboard/               # domain: market list
+      components/            # PairsTable, PairRow, SearchInput
+      dashboard.store.ts
+      dashboard.actions.ts
+      dashboard.mutators.ts
+      dashboard.orchestrators.ts
+      dashboard.types.ts
+      index.tsx
+    token/                   # domain: token detail + chart
+      components/            # CandlestickChart
+      hooks/                 # useChart
+      token.store.ts
+      token.actions.ts
+      token.mutators.ts
+      token.orchestrators.ts
+      token.types.ts
+      index.tsx
+  settings/                  # cross-cutting domain: language, theme, avatar, favorites
+  shared/
+    components/ui/           # shadcn/ui primitives (button, command, sonner, table)
+    components/              # AppHeader, ErrorBoundary
+    services/                # binanceRest.ts, binanceWs.ts — pure, no React/store imports
+    lib/                     # utils.ts
+  styles/
+    index.css                # entry point
+    tailwind.css             # @import tailwindcss + @theme tokens + fonts
+    theme.css                # :root and .dark CSS variable tokens
+    globals.css              # @layer base resets + keyframe animations
+    components/              # AppHeader.css, SearchInput.css
+    pages/                   # dashboard.css, token.css
+  i18n/                      # en.json, vi.json
 ```
 
 ## Architecture

@@ -1,14 +1,17 @@
 import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import "@/styles/pages/dashboard.css";
 import "@/settings/settings.mutators";
 import "./dashboard.mutators";
 import "./dashboard.orchestrators";
 import { connectPriceStream, disconnectPriceStream, pairsLoading } from "./dashboard.actions";
+import { toggleFavorite } from "@/settings/settings.actions";
 import marketStore from "./dashboard.store";
 import settingsStore from "@/settings/settings.store";
 import SearchInput from "./components/SearchInput";
+import PairsTable from "./components/PairsTable";
 
 const Dashboard = observer(() => {
   const navigate = useNavigate();
@@ -24,6 +27,10 @@ const Dashboard = observer(() => {
     };
   }, []);
 
+  useEffect(() => {
+    if (store.error) toast.error(store.error);
+  }, [store.error]);
+
   const favSet = new Set(settings.favorites);
   const q = debouncedQuery.toLowerCase();
   const filtered = q ? store.pairs.filter((p) => p.symbol.toLowerCase().includes(q)) : store.pairs;
@@ -32,41 +39,24 @@ const Dashboard = observer(() => {
     ...filtered.filter((p) => !favSet.has(p.symbol)),
   ];
 
-  if (store.isLoading) return <p>Loading...</p>;
-  if (store.error) return <p>Error: {store.error}</p>;
-
   return (
     <div className="dashboard">
-      <div className="dashboard__header">
-        <SearchInput
-          onChange={setDebouncedQuery}
-          onSelect={(symbol) => navigate(`/token/${symbol}`)}
-          placeholder="Search symbol..."
+      <div className="dashboard__container container">
+        <div className="dashboard__header">
+          <SearchInput
+            onChange={setDebouncedQuery}
+            onSelect={(symbol) => navigate(`/token/${symbol}`)}
+            placeholder="Search symbol..."
+          />
+        </div>
+        <PairsTable
+          pairs={sorted}
+          favorites={favSet}
+          isLoading={store.isLoading}
+          onRowClick={(symbol) => navigate(`/token/${symbol}`)}
+          onToggleFavorite={toggleFavorite}
         />
       </div>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Symbol</th>
-            <th>Price</th>
-            <th>24h %</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sorted.map((pair) => (
-            <tr
-              key={pair.symbol}
-              onClick={() => navigate(`/token/${pair.symbol}`)}
-              onKeyDown={(e) => e.key === "Enter" && navigate(`/token/${pair.symbol}`)}
-            >
-              <td>{pair.symbol}</td>
-              <td>{pair.lastPrice}</td>
-              <td>{pair.priceChangePercent}%</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
     </div>
   );
 });

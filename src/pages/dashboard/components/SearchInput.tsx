@@ -21,6 +21,7 @@ interface Props {
 
 const SearchInput = observer(({ onChange, onSelect, placeholder }: Props) => {
   const [query, setQuery] = useState("");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const emitDebounced = useRef(debounce((q: string) => onChange(q), 200)).current;
 
@@ -35,7 +36,7 @@ const SearchInput = observer(({ onChange, onSelect, placeholder }: Props) => {
   useEffect(() => {
     function handleMouseDown(e: MouseEvent) {
       if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
-        setQuery("");
+        setDropdownOpen(false);
       }
     }
     document.addEventListener("mousedown", handleMouseDown);
@@ -53,6 +54,7 @@ const SearchInput = observer(({ onChange, onSelect, placeholder }: Props) => {
 
   function handleSelect(symbol: string) {
     setQuery("");
+    setDropdownOpen(false);
     onSelect(symbol);
   }
 
@@ -61,10 +63,11 @@ const SearchInput = observer(({ onChange, onSelect, placeholder }: Props) => {
       <Command shouldFilter={false} className="search-cmd">
         <CommandInput
           value={query}
-          onValueChange={setQuery}
+          onValueChange={(v) => { setQuery(v); setDropdownOpen(true); }}
+          onFocus={() => setDropdownOpen(true)}
           placeholder={placeholder}
         />
-        {suggestions.length > 0 && (
+        {dropdownOpen && suggestions.length > 0 && (
           <CommandList className="search-cmd__list">
             <CommandGroup>
               {suggestions.map((pair) => (
