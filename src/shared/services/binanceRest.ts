@@ -1,6 +1,6 @@
 import axios from "axios";
-import type { KlineRaw } from "../types/chart";
-import type { Ticker24hrRaw } from "../types/market";
+import type { KlineRaw } from "@/pages/token/token.types";
+import type { Ticker24hrRaw } from "@/pages/dashboard/dashboard.types";
 
 const client = axios.create({
   baseURL: import.meta.env.VITE_BINANCE_REST_URL,

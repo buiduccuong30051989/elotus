@@ -1,7 +1,7 @@
 import { CandlestickSeries, type IChartApi, type ISeriesApi, createChart } from "lightweight-charts";
 import { reaction } from "mobx";
 import { type RefObject, useEffect, useRef } from "react";
-import chartStore from "../store/chartStore";
+import chartStore from "../token.store";
 
 export function useChart(containerRef: RefObject<HTMLDivElement | null>) {
   const chartRef = useRef<IChartApi | null>(null);

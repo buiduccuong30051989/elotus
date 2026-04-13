@@ -1,6 +1,6 @@
 import { mutator } from "satcheljs";
-import { setAvatarUrl, setLanguage, setTheme, toggleFavorite } from "../actions/settingsActions";
-import settingsStore, { writeSettings } from "../store/settingsStore";
+import { setAvatarUrl, setLanguage, setTheme, toggleFavorite } from "./settings.actions";
+import settingsStore, { writeSettings } from "./settings.store";
 
 mutator(toggleFavorite, ({ symbol }) => {
   const favs = settingsStore().favorites;

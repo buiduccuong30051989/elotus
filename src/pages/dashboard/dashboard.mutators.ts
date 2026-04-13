@@ -1,6 +1,6 @@
 import { mutator } from "satcheljs";
-import { pairsFailed, pairsLoaded, pairsLoading, pricesUpdated } from "../actions/marketActions";
-import marketStore from "../store/marketStore";
+import { pairsFailed, pairsLoaded, pairsLoading, pricesUpdated } from "./dashboard.actions";
+import marketStore from "./dashboard.store";
 
 mutator(pairsLoading, () => {
   marketStore().isLoading = true;
@@ -31,7 +31,6 @@ mutator(pricesUpdated, ({ tickers }) => {
 
     if (next !== prev) {
       pair.direction = next > prev ? "up" : "down";
-      // could set pair.direction = undefined here when next === prev for neutral, but rarely happens in practice
     }
 
     pair.lastPrice = ticker.c;

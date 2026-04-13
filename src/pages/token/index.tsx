@@ -1,13 +1,12 @@
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { chartLoading, chartUnmounted } from "../actions/chartActions";
-import CandlestickChart from "../components/CandlestickChart";
-import "../mutators/chartMutators";
-import "../orchestrators/chartWs";
-import "../orchestrators/loadChart";
-import chartStore from "../store/chartStore";
-import type { Interval } from "../types/chart";
+import { chartLoading, chartUnmounted } from "./token.actions";
+import CandlestickChart from "./components/CandlestickChart";
+import "./token.mutators";
+import "./token.orchestrators";
+import chartStore from "./token.store";
+import type { Interval } from "./token.types";
 
 const INTERVALS: Interval[] = ["1m", "15m", "1h", "4h", "1d"];
 

@@ -1,7 +1,8 @@
 import { mutator } from "satcheljs";
-import { candlesLoaded, chartFailed, chartLoading, klineUpdated } from "../actions/chartActions";
-import chartStore from "../store/chartStore";
-import { klineWsToCandle } from "../types/chart";
+import { candlesLoaded, chartFailed, chartLoading, klineUpdated } from "./token.actions";
+import chartStore from "./token.store";
+import { klineWsToCandle } from "./token.types";
+
 mutator(chartLoading, ({ symbol, interval }) => {
   chartStore().symbol = symbol;
   chartStore().interval = interval;

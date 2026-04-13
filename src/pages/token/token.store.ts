@@ -1,5 +1,5 @@
 import { createStore } from "satcheljs";
-import type { Candle, Interval } from "../types/chart";
+import type { Candle, Interval } from "./token.types";
 
 interface ChartStore {
   candles: Candle[];

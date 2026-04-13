@@ -1,6 +1,6 @@
 import { CircleCheckIcon, InfoIcon, Loader2Icon, OctagonXIcon, TriangleAlertIcon } from "lucide-react"
 import { Toaster as Sonner, type ToasterProps } from "sonner"
-import settingsStore from "../../store/settingsStore"
+import settingsStore from "@/settings/settings.store"
 
 const Toaster = ({ ...props }: ToasterProps) => {
   const theme = settingsStore().theme

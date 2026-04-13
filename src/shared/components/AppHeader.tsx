@@ -1,9 +1,9 @@
 import { observer } from "mobx-react-lite";
 import { useRef } from "react";
 import { useTranslation } from "react-i18next";
-import "../mutators/settingsMutators";
-import { setAvatarUrl, setLanguage, setTheme } from "../actions/settingsActions";
-import settingsStore from "../store/settingsStore";
+import "@/settings/settings.mutators";
+import { setAvatarUrl, setLanguage, setTheme } from "@/settings/settings.actions";
+import settingsStore from "@/settings/settings.store";
 
 const AppHeader = observer(() => {
   const { i18n } = useTranslation();

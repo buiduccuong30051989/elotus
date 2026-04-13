@@ -1,5 +1,5 @@
 import { action } from "satcheljs";
-import type { Candle, Interval, KlineWsPayload } from "../types/chart";
+import type { Candle, Interval, KlineWsPayload } from "./token.types";
 
 export const chartLoading = action("chartLoading", (symbol: string, interval: Interval) => ({ symbol, interval }));
 export const candlesLoaded = action("candlesLoaded", (candles: Candle[]) => ({ candles }));

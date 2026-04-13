@@ -1,5 +1,5 @@
 import { action } from "satcheljs";
-import type { CryptoPair, MiniTickerPayload } from "../types/market";
+import type { CryptoPair, MiniTickerPayload } from "./dashboard.types";
 
 export const pairsLoading = action("pairsLoading");
 
