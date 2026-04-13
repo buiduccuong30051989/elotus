@@ -1,5 +1,5 @@
 import { createStore } from "satcheljs";
-import type { Candle, Interval } from "./token.types";
+import type { Candle, DepthLevel, Interval } from "./token.types";
 
 interface ChartStore {
   candles: Candle[];
@@ -7,6 +7,8 @@ interface ChartStore {
   interval: Interval;
   isLoading: boolean;
   error: string | null;
+  bids: DepthLevel[];
+  asks: DepthLevel[];
 }
 
 const chartStore = createStore<ChartStore>("chartStore", {
@@ -15,6 +17,8 @@ const chartStore = createStore<ChartStore>("chartStore", {
   interval: "15m",
   isLoading: false,
   error: null,
+  bids: [],
+  asks: [],
 });
 
 export default chartStore;

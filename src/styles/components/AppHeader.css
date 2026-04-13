@@ -1,7 +1,11 @@
 @reference "../tailwind.css";
 
 .app-header {
-  @apply sticky top-0 z-50 flex h-14 items-center justify-between border-b border-border bg-background/80 px-4 backdrop-blur-sm md:px-6;
+  @apply sticky top-0 z-50 border-b border-border bg-background/80 px-4 backdrop-blur-sm md:px-6;
+}
+
+.app-header__container {
+  @apply mx-auto flex h-14 items-center justify-between  px-2 sm:px-0;
 }
 
 .app-header__controls {

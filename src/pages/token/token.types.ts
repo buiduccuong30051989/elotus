@@ -41,6 +41,14 @@ export interface KlineWsPayload {
   };
 }
 
+export type DepthLevel = { price: string; qty: string };
+
+export interface DepthRaw {
+  lastUpdateId: number;
+  bids: [string, string][];
+  asks: [string, string][];
+}
+
 export function toCandle(k: KlineRaw): Candle {
   return {
     time: (k[0] / 1000) as UTCTimestamp,

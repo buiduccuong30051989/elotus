@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import "@/styles/pages/token.css";
 import { chartLoading, chartUnmounted } from "./token.actions";
 import CandlestickChart from "./components/CandlestickChart";
+import OrderBook from "./components/OrderBook";
 import "./token.mutators";
 import "./token.orchestrators";
 import chartStore from "./token.store";
@@ -38,6 +39,7 @@ const TokenDetail = observer(() => {
       {store.isLoading && <p>Loading...</p>}
       {store.error && <p>Error: {store.error}</p>}
       <CandlestickChart />
+      <OrderBook />
     </div>
   );
 });

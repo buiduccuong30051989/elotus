@@ -8,9 +8,11 @@
   },
   "dashboard": {
     "title": "Market",
+    "symbol": "Symbol",
     "price": "Price",
-    "change24h": "24h Change",
-    "volume": "Volume"
+    "change24h": "24h %",
+    "volume": "Volume",
+    "searchPlaceholder": "Search symbol..."
   },
   "chart": {
     "title": "Chart",

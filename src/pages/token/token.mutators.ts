@@ -1,5 +1,5 @@
 import { mutator } from "satcheljs";
-import { candlesLoaded, chartFailed, chartLoading, klineUpdated } from "./token.actions";
+import { candlesLoaded, chartFailed, chartLoading, depthUpdated, klineUpdated } from "./token.actions";
 import chartStore from "./token.store";
 import { klineWsToCandle } from "./token.types";
 
@@ -19,6 +19,11 @@ mutator(candlesLoaded, ({ candles }) => {
 mutator(chartFailed, ({ error }) => {
   chartStore().error = error;
   chartStore().isLoading = false;
+});
+
+mutator(depthUpdated, ({ bids, asks }) => {
+  chartStore().bids = bids;
+  chartStore().asks = asks;
 });
 
 mutator(klineUpdated, ({ payload }) => {

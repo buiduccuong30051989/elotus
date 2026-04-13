@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import {
   TableBody,
@@ -22,6 +23,7 @@ interface Props {
 }
 
 function PairsTable({ pairs, favorites, isLoading, onRowClick, onToggleFavorite }: Props) {
+  const { t } = useTranslation();
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const rowVirtualizer = useVirtualizer({
@@ -37,9 +39,9 @@ function PairsTable({ pairs, favorites, isLoading, onRowClick, onToggleFavorite 
         <table className="w-full caption-bottom text-sm">
           <TableHeader className="sticky top-0 z-10 bg-background">
             <TableRow className="flex items-center">
-              <TableHead className="flex flex-[5] items-center">Symbol</TableHead>
-              <TableHead className="flex flex-[4] items-center">Price</TableHead>
-              <TableHead className="flex flex-[3] items-center">24h %</TableHead>
+              <TableHead className="flex flex-[5] items-center">{t("dashboard.symbol")}</TableHead>
+              <TableHead className="flex flex-[4] items-center">{t("dashboard.price")}</TableHead>
+              <TableHead className="flex flex-[3] items-center">{t("dashboard.change24h")}</TableHead>
               <TableHead className="w-12 shrink-0" />
             </TableRow>
           </TableHeader>

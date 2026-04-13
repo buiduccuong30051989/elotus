@@ -8,9 +8,11 @@
   },
   "dashboard": {
     "title": "Thị trường",
+    "symbol": "Cặp tiền",
     "price": "Giá",
     "change24h": "Thay đổi 24h",
-    "volume": "Khối lượng"
+    "volume": "Khối lượng",
+    "searchPlaceholder": "Tìm cặp tiền..."
   },
   "chart": {
     "title": "Biểu đồ",

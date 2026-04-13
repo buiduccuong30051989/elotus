@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import "@/styles/pages/dashboard.css";
@@ -14,6 +15,7 @@ import SearchInput from "./components/SearchInput";
 import PairsTable from "./components/PairsTable";
 
 const Dashboard = observer(() => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const store = marketStore();
   const settings = settingsStore();
@@ -46,7 +48,7 @@ const Dashboard = observer(() => {
           <SearchInput
             onChange={setDebouncedQuery}
             onSelect={(symbol) => navigate(`/token/${symbol}`)}
-            placeholder="Search symbol..."
+            placeholder={t("dashboard.searchPlaceholder")}
           />
         </div>
         <PairsTable
