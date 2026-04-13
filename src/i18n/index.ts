@@ -4,7 +4,7 @@ import { initReactI18next } from "react-i18next";
 import en from "./en.json";
 import vi from "./vi.json";
 
-const savedLang = localStorage.getItem("language") ?? "en";
+const savedLang = (JSON.parse(localStorage.getItem("settings") ?? "{}").language as string) ?? "en";
 
 i18n.use(initReactI18next).init({
   resources: {
