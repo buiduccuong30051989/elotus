@@ -11,8 +11,10 @@ const AppHeader = observer(() => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   function handleThemeToggle() {
-    const next = settings.theme === "light" ? "dark" : "light";
+    const cycle = { system: "light", light: "dark", dark: "system" } as const;
+    const next = cycle[settings.theme];
     document.documentElement.classList.toggle("dark", next === "dark");
+    document.documentElement.classList.toggle("light", next === "light");
     setTheme(next);
   }
 

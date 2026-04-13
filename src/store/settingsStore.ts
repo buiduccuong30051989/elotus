@@ -5,14 +5,14 @@ const saved = JSON.parse(localStorage.getItem("settings") ?? "{}");
 interface SettingsStore {
   favorites: string[];
   language: string;
-  theme: "light" | "dark";
+  theme: "light" | "dark" | "system";
   avatarUrl: string | null;
 }
 
 const settingsStore = createStore<SettingsStore>("settingsStore", {
   favorites: saved.favorites ?? [],
   language: saved.language ?? "en",
-  theme: saved.theme ?? "light",
+  theme: saved.theme ?? "system",
   avatarUrl: saved.avatarUrl ?? null,
 });
 
