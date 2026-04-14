@@ -10,12 +10,24 @@ export function useChart(containerRef: RefObject<HTMLDivElement | null>) {
   useEffect(() => {
     if (!containerRef.current) return;
 
-    const chart = createChart(containerRef.current, {
-      width: containerRef.current.clientWidth,
-      height: 400,
+    const el = containerRef.current;
+    const chart = createChart(el, {
+      width: el.clientWidth,
+      height: el.clientHeight,
     });
+
+    const ro = new ResizeObserver(() => {
+      chart.resize(el.clientWidth, el.clientHeight);
+    });
+    ro.observe(el);
     chartRef.current = chart;
     seriesRef.current = chart.addSeries(CandlestickSeries);
+
+    const existing = chartStore().candles.slice();
+    if (existing.length > 0) {
+      seriesRef.current?.setData(existing);
+      chartRef.current?.timeScale().fitContent();
+    }
 
     const disposeLoad = reaction(
       () => chartStore().candles.length,
@@ -37,6 +49,7 @@ export function useChart(containerRef: RefObject<HTMLDivElement | null>) {
     );
 
     return () => {
+      ro.disconnect();
       chart.remove();
       chartRef.current = null;
       seriesRef.current = null;

@@ -18,6 +18,13 @@
     "title": "Biểu đồ",
     "interval": "Khung thời gian"
   },
+  "orderBook": {
+    "title": "Sổ lệnh",
+    "price": "Giá",
+    "qty": "KL",
+    "bids": "Mua",
+    "asks": "Bán"
+  },
   "settings": {
     "language": "Ngôn ngữ",
     "theme": "Giao diện",

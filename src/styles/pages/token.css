@@ -1,1 +1,131 @@
 @reference "../tailwind.css";
+
+.token-detail {
+  @apply flex flex-col;
+  height: calc(100dvh - 3.5rem);
+}
+
+.token-detail__container {
+  @apply mx-auto flex flex-1 flex-col min-h-0 py-4 md:py-6 px-2 sm:px-0;
+}
+
+.token-detail__controls {
+  @apply flex flex-shrink-0 items-center gap-2 pb-4;
+}
+
+.token-detail__symbol {
+  @apply mr-auto text-sm font-semibold;
+}
+
+.token-detail__interval-btn {
+  @apply rounded px-3 py-1 text-sm font-medium transition-colors;
+}
+
+.token-detail__interval-btn--active {
+  @apply bg-foreground text-background;
+}
+
+.token-detail__interval-btn:not(.token-detail__interval-btn--active) {
+  @apply text-muted-foreground hover:text-foreground;
+}
+
+.token-detail__chart {
+  @apply flex-shrink-0 w-full overflow-hidden rounded-md border border-border;
+  height: 55dvh;
+  min-height: 300px;
+}
+
+.token-detail__depth {
+  @apply flex-1 min-h-0 pt-4;
+}
+
+.token-detail__chart-skeleton {
+  @apply w-full h-full animate-pulse bg-muted;
+}
+
+.order-book__grid {
+  @apply grid grid-cols-1 md:grid-cols-2 h-full rounded-md border border-border overflow-hidden;
+}
+
+.order-book__tabs {
+  @apply col-span-1 flex md:hidden border-b border-border;
+}
+
+.order-book__tab {
+  @apply flex-1 py-2 text-xs font-medium text-muted-foreground transition-colors;
+}
+
+.order-book__tab--active {
+  @apply text-foreground border-b-2 border-foreground;
+}
+
+.order-book__side {
+  @apply overflow-y-auto h-full;
+}
+
+.order-book__side--hidden {
+  @apply hidden md:block;
+}
+
+.order-book__side:not(.order-book__side--hidden) + .order-book__side:not(.order-book__side--hidden) {
+  border-left: 1px solid var(--color-border);
+}
+
+.order-book__table {
+  @apply w-full border-collapse;
+}
+
+.order-book__th {
+  @apply sticky top-0 bg-background px-3 pt-3 pb-2 text-left text-xs font-medium text-muted-foreground border-b border-border;
+}
+
+.order-book__th--right {
+  @apply text-right;
+}
+
+.order-book__row {
+  @apply cursor-default transition-colors hover:bg-muted/50;
+}
+
+.order-book__row--bid {
+  @apply text-green-500;
+}
+
+.order-book__row--ask {
+  @apply text-red-500;
+}
+
+.order-book__td {
+  @apply px-3 py-0.5 text-xs tabular-nums;
+}
+
+.order-book__td--right {
+  @apply text-right;
+}
+
+.order-book__row:last-child .order-book__td {
+  @apply pb-3;
+}
+
+@media (max-height: 600px) {
+  .token-detail {
+    height: auto;
+  }
+
+  .token-detail__container {
+    flex: none;
+  }
+
+  .token-detail__chart {
+    height: clamp(200px, 50vw, 350px);
+  }
+
+  .token-detail__depth {
+    flex: none;
+    height: 400px;
+  }
+
+  .order-book__grid {
+    height: 400px;
+  }
+}

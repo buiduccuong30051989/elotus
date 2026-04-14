@@ -1,7 +1,9 @@
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { toast } from "sonner";
 import "@/styles/pages/token.css";
+import ErrorBoundary from "@/shared/components/ErrorBoundary";
 import { chartLoading, chartUnmounted } from "./token.actions";
 import CandlestickChart from "./components/CandlestickChart";
 import OrderBook from "./components/OrderBook";
@@ -19,27 +21,46 @@ const TokenDetail = observer(() => {
   useEffect(() => {
     if (!symbol) return;
     chartLoading(symbol, store.interval);
-    return () => { chartUnmounted(); };
+    return () => {
+      chartUnmounted();
+    };
   }, [symbol, store.interval]);
 
+  useEffect(() => {
+    if (store.error) toast.error(store.error);
+  }, [store.error]);
+
   return (
-    <div>
-      <p>{symbol}</p>
-      <div>
-        {INTERVALS.map((i) => (
-          <button
-            key={i}
-            type="button"
-            onClick={() => symbol && chartLoading(symbol, i)}
-          >
-            {i}
-          </button>
-        ))}
+    <div className="token-detail">
+      <div className="token-detail__container container">
+        <div className="token-detail__controls">
+          <span className="token-detail__symbol">{symbol}</span>
+          {INTERVALS.map((i) => (
+            <button
+              key={i}
+              type="button"
+              className={`token-detail__interval-btn${store.interval === i ? " token-detail__interval-btn--active" : ""}`}
+              onClick={() => symbol && chartLoading(symbol, i)}
+            >
+              {i}
+            </button>
+          ))}
+        </div>
+        <div className="token-detail__chart">
+          <ErrorBoundary>
+            {store.isLoading ? (
+              <div className="token-detail__chart-skeleton" />
+            ) : (
+              <CandlestickChart />
+            )}
+          </ErrorBoundary>
+        </div>
+        <div className="token-detail__depth">
+          <ErrorBoundary>
+            <OrderBook />
+          </ErrorBoundary>
+        </div>
       </div>
-      {store.isLoading && <p>Loading...</p>}
-      {store.error && <p>Error: {store.error}</p>}
-      <CandlestickChart />
-      <OrderBook />
     </div>
   );
 });

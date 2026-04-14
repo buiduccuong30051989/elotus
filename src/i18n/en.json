@@ -18,6 +18,13 @@
     "title": "Chart",
     "interval": "Interval"
   },
+  "orderBook": {
+    "title": "Order Book",
+    "price": "Price",
+    "qty": "Qty",
+    "bids": "Bids",
+    "asks": "Asks"
+  },
   "settings": {
     "language": "Language",
     "theme": "Theme",

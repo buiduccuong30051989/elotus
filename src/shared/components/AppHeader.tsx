@@ -1,6 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { useRef } from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import { MoonIcon, SunIcon, UserIcon } from "lucide-react";
 import "@/styles/components/AppHeader.css";
 import "@/settings/settings.mutators";
@@ -29,7 +30,7 @@ const AppHeader = observer(() => {
   return (
     <header className="app-header">
       <div className="app-header__container container">
-        <span className="text-base font-semibold tracking-tight">Elotus</span>
+        <Link to="/" className="text-base font-semibold tracking-tight">Elotus</Link>
 
         <div className="app-header__controls">
           <select

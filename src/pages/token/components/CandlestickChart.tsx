@@ -4,7 +4,7 @@ import { useChart } from "../hooks/useChart";
 function CandlestickChart() {
   const containerRef = useRef<HTMLDivElement>(null);
   useChart(containerRef);
-  return <div ref={containerRef} />;
+  return <div ref={containerRef} className="w-full h-full" />;
 }
 
 export default CandlestickChart;

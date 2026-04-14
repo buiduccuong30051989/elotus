@@ -68,17 +68,7 @@ src/
   i18n/                      # en.json, vi.json
 ```
 
-## Architecture
-
-### Library roles
-
-**MobX** is the reactive engine. It holds all application state as observable objects and automatically notifies any subscriber when a field changes.
-
-**SatchelJS** sits on top of MobX and enforces a unidirectional data flow. It provides the Action → Mutator → Orchestrator pattern so that state is never mutated arbitrarily — every write goes through a mutator, every side effect goes through an orchestrator.
-
-**mobx-react-lite** is the bridge between MobX and React. Its `observer()` wrapper tracks which store fields a component reads during render, then re-renders that component — and only that component — when those specific fields change.
-
-### Data flow
+### Architecture Data flow
 
 ```
 ┌─────────────────────────────────────────────────────────┐
