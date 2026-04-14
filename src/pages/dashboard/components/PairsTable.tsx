@@ -33,6 +33,13 @@ function PairsTable({ pairs, favorites, isLoading, onRowClick, onToggleFavorite 
     overscan: 5,
   });
 
+  const virtualItems = rowVirtualizer.getVirtualItems();
+  const paddingTop = virtualItems.length > 0 ? virtualItems[0].start : 0;
+  const paddingBottom =
+    virtualItems.length > 0
+      ? rowVirtualizer.getTotalSize() - virtualItems[virtualItems.length - 1].end
+      : 0;
+
   return (
     <div className="dashboard__table-wrapper">
       <div ref={scrollRef} className="dashboard__scroll">
@@ -41,30 +48,20 @@ function PairsTable({ pairs, favorites, isLoading, onRowClick, onToggleFavorite 
             <TableRow className="flex items-center">
               <TableHead className="flex flex-[5] items-center">{t("dashboard.symbol")}</TableHead>
               <TableHead className="flex flex-[4] items-center">{t("dashboard.price")}</TableHead>
-              <TableHead className="flex flex-[3] items-center">{t("dashboard.change24h")}</TableHead>
+              <TableHead className="flex flex-[3] items-center">
+                {t("dashboard.change24h")}
+              </TableHead>
               <TableHead className="w-12 shrink-0" />
             </TableRow>
           </TableHeader>
           {isLoading ? (
-            <TableBody
-              style={{
-                position: "relative",
-                height: `${SKELETON_COUNT * ROW_HEIGHT}px`,
-              }}
-            >
+            <TableBody>
               {Array.from({ length: SKELETON_COUNT }).map((_, i) => (
                 <TableRow
                   // biome-ignore lint/suspicious/noArrayIndexKey: stable skeleton
                   key={i}
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    transform: `translateY(${i * ROW_HEIGHT}px)`,
-                    width: "100%",
-                    height: `${ROW_HEIGHT}px`,
-                    display: "flex",
-                    alignItems: "center",
-                  }}
+                  className="flex items-center"
+                  style={{ height: ROW_HEIGHT }}
                 >
                   <TableCell className="flex-[5]">
                     <div className="h-4 w-24 animate-pulse rounded bg-muted" />
@@ -80,25 +77,29 @@ function PairsTable({ pairs, favorites, isLoading, onRowClick, onToggleFavorite 
               ))}
             </TableBody>
           ) : (
-            <TableBody
-              style={{
-                position: "relative",
-                height: `${rowVirtualizer.getTotalSize()}px`,
-              }}
-            >
-              {rowVirtualizer.getVirtualItems().map((vRow) => {
+            <TableBody>
+              {paddingTop > 0 && (
+                <tr>
+                  <td style={{ height: paddingTop }} />
+                </tr>
+              )}
+              {virtualItems.map((vRow) => {
                 const pair = pairs[vRow.index];
                 return (
                   <PairRow
                     key={pair.symbol}
                     pair={pair}
                     isFav={favorites.has(pair.symbol)}
-                    start={vRow.start}
                     onRowClick={onRowClick}
                     onToggleFavorite={onToggleFavorite}
                   />
                 );
               })}
+              {paddingBottom > 0 && (
+                <tr>
+                  <td style={{ height: paddingBottom }} />
+                </tr>
+              )}
             </TableBody>
           )}
         </table>

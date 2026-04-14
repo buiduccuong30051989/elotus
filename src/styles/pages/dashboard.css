@@ -1,8 +1,8 @@
 @reference "../tailwind.css";
 
 .dashboard {
-  @apply flex flex-col;
-  height: calc(100dvh - 3.5rem);
+  @apply flex flex-col overflow-hidden;
+  height: calc(100svh - 3.5rem);
 }
 
 .dashboard__container {
@@ -10,7 +10,7 @@
 }
 
 .dashboard__header {
-  @apply flex flex-shrink-0 items-center py-4;
+  @apply relative z-20 flex flex-shrink-0 items-center py-4;
 }
 
 .dashboard__table-wrapper {

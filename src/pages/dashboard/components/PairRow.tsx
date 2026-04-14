@@ -7,32 +7,23 @@ import type { CryptoPair } from "../dashboard.types";
 interface Props {
   pair: CryptoPair;
   isFav: boolean;
-  start: number;
   onRowClick: (symbol: string) => void;
   onToggleFavorite: (symbol: string) => void;
 }
 
 const PairRow = memo(
-  observer(function PairRow({ pair, isFav, start, onRowClick, onToggleFavorite }: Props) {
+  observer(function PairRow({ pair, isFav, onRowClick, onToggleFavorite }: Props) {
     return (
       <TableRow
         onClick={() => onRowClick(pair.symbol)}
         className={
           pair.direction === "up"
-            ? "flash-green cursor-pointer"
+            ? "flash-green cursor-pointer flex items-center"
             : pair.direction === "down"
-              ? "flash-red cursor-pointer"
-              : "cursor-pointer"
+              ? "flash-red cursor-pointer flex items-center"
+              : "cursor-pointer flex items-center"
         }
-        style={{
-          position: "absolute",
-          top: 0,
-          transform: `translateY(${start}px)`,
-          width: "100%",
-          height: "48px",
-          display: "flex",
-          alignItems: "center",
-        }}
+        style={{ height: 48 }}
       >
         <TableCell className="flex-[5]">{pair.symbol}</TableCell>
         <TableCell className="flex-[4]">{pair.lastPrice}</TableCell>

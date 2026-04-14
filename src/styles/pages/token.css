@@ -1,7 +1,7 @@
 @reference "../tailwind.css";
 
 .token-detail {
-  @apply flex flex-col;
+  @apply flex flex-col overflow-hidden;
   height: calc(100dvh - 3.5rem);
 }
 
