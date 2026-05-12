@@ -1,3 +1,4 @@
+LIVE: https://elotus-phi.vercel.app/
 ## Tech Stack
 
 | Category | Choice |
